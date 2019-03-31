@@ -1,1 +1,1 @@
-# neochi-core
+# Core Modules for Neochi Solver
