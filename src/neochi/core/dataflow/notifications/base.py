@@ -40,7 +40,6 @@ class BaseNotification:
             if message['type'] == 'message':
                 self._data_type.value = message['data']
                 callback(self._data_type.value)
-        print('unsubscribed')
 
     def subscribe(self, callback):
         if self._pubsub is None:
