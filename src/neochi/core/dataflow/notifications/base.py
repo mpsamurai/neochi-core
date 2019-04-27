@@ -34,7 +34,6 @@ class BaseNotification:
         self._server = redis_server
         self._data_type = self.data_type_cls()
         self._pubsub = None
-        self._subscribe_thread = None
 
     def _subscribe(self, callback):
         for message in self._pubsub.listen():
@@ -47,8 +46,8 @@ class BaseNotification:
         if self._pubsub is None:
             self._pubsub = self._server.pubsub()
         self._pubsub.subscribe(self.channel)
-        self._subscribe_thread = threading.Thread(target=self._subscribe, args=([callback, ]))
-        self._subscribe_thread.start()
+        thread = threading.Thread(target=self._subscribe, args=([callback, ]))
+        thread.start()
 
     def unsubscribe(self):
         self._pubsub.unsubscribe(self.channel)
