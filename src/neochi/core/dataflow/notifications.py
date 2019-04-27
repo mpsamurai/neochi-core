@@ -82,11 +82,8 @@ if __name__ == '__main__':
     image_notification = SampleImageNotification(r)
     image_notification.subscribe(callback)
     image_notification.value = np.array([[1, 2], [1, 3]])
-    image_notification.subscribe(callback)
     image_notification.value = np.array([[2, 2], [1, 3]])
-    image_notification.subscribe(callback)
     image_notification.value = np.array([[3, 2], [1, 3]])
-    image_notification.subscribe(callback)
     image_notification.unsubscribe()
     print('last-result\n', image_notification.value)
 
