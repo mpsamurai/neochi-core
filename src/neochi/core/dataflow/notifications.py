@@ -71,6 +71,7 @@ if __name__ == '__main__':
         data_type_cls = data_types.Image
         channel = 'sample_image_data'
 
+
     def callback(value):
         print(value)
 
@@ -93,3 +94,12 @@ if __name__ == '__main__':
     image_notification.unsubscribe()
     print('last-result\n', image_notification.value)
 
+    class SampleJsonNotification(BaseNotification):
+        data_type_cls = data_types.Json
+        channel = 'sample_json_data'
+
+    json_notification = SampleJsonNotification(r)
+    json_notification.subscribe(callback)
+    json_notification.value = {'abc': 1, 'cde': 'abc'}
+    json_notification.unsubscribe()
+    json_notification.value = {'abc': 1, 'cde': 'abc'}
