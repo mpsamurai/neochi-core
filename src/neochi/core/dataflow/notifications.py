@@ -71,6 +71,9 @@ if __name__ == '__main__':
         data_type_cls = data_types.Image
         channel = 'sample_image_data'
 
+    class SampleJsonNotification(BaseNotification):
+        data_type_cls = data_types.Json
+        channel = 'sample_json_data'
 
     def callback(value):
         print(value)
@@ -80,26 +83,16 @@ if __name__ == '__main__':
     image_notification.subscribe(callback)
     image_notification.value = np.array([[1, 2], [1, 3]])
     image_notification.subscribe(callback)
-    image_notification.value = np.array([[1, 2], [1, 3]])
+    image_notification.value = np.array([[2, 2], [1, 3]])
     image_notification.subscribe(callback)
-    image_notification.value = np.array([[1, 2], [1, 3]])
+    image_notification.value = np.array([[3, 2], [1, 3]])
     image_notification.subscribe(callback)
-    image_notification.value = np.array([[1, 2], [1, 3]])
-    image_notification.subscribe(callback)
-    image_notification.value = np.array([[1, 2], [1, 3]])
-    image_notification.subscribe(callback)
-    image_notification.value = np.array([[1, 2], [1, 3]])
-    image_notification.subscribe(callback)
-    image_notification.value = np.array([[1, 2], [1, 3]])
     image_notification.unsubscribe()
     print('last-result\n', image_notification.value)
-
-    class SampleJsonNotification(BaseNotification):
-        data_type_cls = data_types.Json
-        channel = 'sample_json_data'
 
     json_notification = SampleJsonNotification(r)
     json_notification.subscribe(callback)
     json_notification.value = {'abc': 1, 'cde': 'abc'}
     json_notification.unsubscribe()
-    json_notification.value = {'abc': 1, 'cde': 'abc'}
+    json_notification.value = {'cde': 2, 'efg': 'abc'}
+    print('last-result\n', json_notification.value)
