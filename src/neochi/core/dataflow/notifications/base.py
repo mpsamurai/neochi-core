@@ -30,16 +30,17 @@ class BaseNotification:
     data_type_cls = None
     channel = ''
 
-    def __init__(self, redis_server):
+    def __init__(self, redis_server, auto_notify=True):
         self._server = redis_server
-        self._data_type = self.data_type_cls()
+        self._data = self.data_type_cls()
         self._pubsub = None
+        self.auto_notify = auto_notify
 
     def _subscribe(self, callback):
         for message in self._pubsub.listen():
             if message['type'] == 'message':
-                self._data_type.value = message['data']
-                callback(self._data_type.value)
+                self._data.value = message['data']
+                callback(self._data.value)
 
     def subscribe(self, callback):
         if self._pubsub is None:
@@ -51,14 +52,18 @@ class BaseNotification:
     def unsubscribe(self):
         self._pubsub.unsubscribe(self.channel)
 
+    def notify(self):
+        self._server.publish(self.channel, self._data.to_string())
+
     @property
     def value(self):
-        return self._data_type.value
+        return self._data.value
 
     @value.setter
     def value(self, val):
-        self._data_type.value = val
-        self._server.publish(self.channel, self._data_type.to_string())
+        self._data.value = val
+        if self.auto_notify:
+            self.notify()
 
 
 if __name__ == '__main__':
@@ -73,8 +78,12 @@ if __name__ == '__main__':
         data_type_cls = data_types.Json
         channel = 'sample_json_data'
 
+    class SampleEmptyNotification(BaseNotification):
+        data_type_cls = data_types.Null
+        channel = 'sample_empty_data'
+
     def callback(value):
-        print(value)
+        print('subscribe', value)
 
     r = redis.StrictRedis('localhost', 6379, db=0)
     image_notification = SampleImageNotification(r)
@@ -83,11 +92,24 @@ if __name__ == '__main__':
     image_notification.value = np.array([[2, 2], [1, 3]])
     image_notification.value = np.array([[3, 2], [1, 3]])
     image_notification.unsubscribe()
-    print('last-result\n', image_notification.value)
+    print('last result\n', image_notification.value)
 
     json_notification = SampleJsonNotification(r)
     json_notification.subscribe(callback)
     json_notification.value = {'abc': 1, 'cde': 'abc'}
     json_notification.unsubscribe()
     json_notification.value = {'cde': 2, 'efg': 'abc'}
-    print('last-result\n', json_notification.value)
+    print('last result\n', json_notification.value)
+
+    empty_notification = SampleEmptyNotification(r)
+    empty_notification.subscribe(callback)
+    empty_notification.notify()
+    empty_notification.unsubscribe()
+    print('last result\n', empty_notification.value)
+
+    json_notification = SampleJsonNotification(r, False)
+    json_notification.subscribe(callback)
+    json_notification.value = {'abc': 100, 'cde': 'reuiuabada'}
+    json_notification.unsubscribe()
+
+
