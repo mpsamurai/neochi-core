@@ -20,10 +20,11 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+
 __author__ = 'Junya Kaneko<junya@mpsamurai.org>'
 
+
 import threading
-from neochi.core.dataflow import data_types
 
 
 class BaseNotification:
@@ -65,51 +66,5 @@ class BaseNotification:
         if self.auto_notify:
             self.notify()
 
-
-if __name__ == '__main__':
-    import redis
-    import numpy as np
-
-    class SampleImageNotification(BaseNotification):
-        data_type_cls = data_types.Image
-        channel = 'sample_image_data'
-
-    class SampleJsonNotification(BaseNotification):
-        data_type_cls = data_types.Json
-        channel = 'sample_json_data'
-
-    class SampleEmptyNotification(BaseNotification):
-        data_type_cls = data_types.Null
-        channel = 'sample_empty_data'
-
-    def callback(value):
-        print('subscribe', value)
-
-    r = redis.StrictRedis('localhost', 6379, db=0)
-    image_notification = SampleImageNotification(r)
-    image_notification.subscribe(callback)
-    image_notification.value = np.array([[1, 2], [1, 3]])
-    image_notification.value = np.array([[2, 2], [1, 3]])
-    image_notification.value = np.array([[3, 2], [1, 3]])
-    image_notification.unsubscribe()
-    print('last result\n', image_notification.value)
-
-    json_notification = SampleJsonNotification(r)
-    json_notification.subscribe(callback)
-    json_notification.value = {'abc': 1, 'cde': 'abc'}
-    json_notification.unsubscribe()
-    json_notification.value = {'cde': 2, 'efg': 'abc'}
-    print('last result\n', json_notification.value)
-
-    empty_notification = SampleEmptyNotification(r)
-    empty_notification.subscribe(callback)
-    empty_notification.notify()
-    empty_notification.unsubscribe()
-    print('last result\n', empty_notification.value)
-
-    json_notification = SampleJsonNotification(r, False)
-    json_notification.subscribe(callback)
-    json_notification.value = {'abc': 100, 'cde': 'reuiuabada'}
-    json_notification.unsubscribe()
 
 
