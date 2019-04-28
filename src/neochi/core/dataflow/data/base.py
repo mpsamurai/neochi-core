@@ -22,8 +22,6 @@
 
 __author__ = 'Junya Kaneko<junya@mpsamurai.org>'
 
-from neochi.core.dataflow import data_types
-
 
 class BaseData:
     data_type_cls = None
@@ -42,18 +40,3 @@ class BaseData:
     def value(self, val):
         self._data_type.value = val
         self._server.set(self.key, self._data_type.to_string())
-
-
-if __name__ == '__main__':
-    import redis
-    import numpy as np
-
-    class SampleImageData(BaseData):
-        data_type_cls = data_types.Image
-        key = 'sample_image_data'
-
-    r = redis.StrictRedis('localhost', 6379, db=0)
-    image_data = SampleImageData(r)
-    image_data.value = np.array([[1, 2], [1, 3]])
-    print(image_data.value)
-
