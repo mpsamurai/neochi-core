@@ -106,7 +106,7 @@ class TestImageTestNotification(BaseTestNotification, unittest.TestCase):
     valid_test_data = [{'published': np.array([[1, 2], [3, 4]]),
                         'subscribed': np.array([[1, 2], [3, 4]])}]
 
-    def test_that_setter_and_getter_value_pubsubs_valid_data_when_valid_data_is_given(self):
+    def test_that_setter_and_getter_value_pubsub_valid_data_when_valid_data_is_given(self):
         for datum in self.valid_test_data:
             self._notification.subscribe(lambda v: self.assertTrue(np.all(v == datum['subscribed'])))
             self._notification.value = datum['published']
