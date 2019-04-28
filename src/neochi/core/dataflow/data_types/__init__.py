@@ -20,4 +20,4 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-from neochi.core.dataflow.data_types.base import Int, Float, Str, Json, Image
+from neochi.core.dataflow.data_types.base import Null, Int, Float, Str, Json, Image
