@@ -19,3 +19,16 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
+
+
+from neochi.core.dataflow.data imprt base
+from neochi.core.dataflow import data_types
+
+
+class ReceiverState(base.BaseData):
+    data_type_cls = data_types.Str
+    key = 'ir-receiver:state'
+    
+class Ir(base.BaseData):
+    data_type_cls = data_types.Json
+    key = 'ir-receiver:ir'
