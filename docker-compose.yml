@@ -3,10 +3,5 @@ version: "3"
 services:
   redis:
     image: redis
-  neochi:
-    build: .
-    volumes:
-      - ./src:/code
-    depends_on:
-      - redis
-
+    ports:
+      - 6379:6379

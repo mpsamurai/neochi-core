@@ -27,5 +27,3 @@ class ClapDetectorNotification(base.BaseNotification):
     data_type_cls = data_types.Str 
     channel = 'detected_clap'
 
-def clapDetectorCallback(value):
-    print(value)
