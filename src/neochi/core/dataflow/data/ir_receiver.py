@@ -25,10 +25,11 @@ from neochi.core.dataflow.data import base
 from neochi.core.dataflow import data_types
 
 
-class ReceiverState(base.BaseData):
+class State(base.BaseData):
     data_type_cls = data_types.Str
     key = 'ir-receiver:state'
-    
+
+
 class Ir(base.BaseData):
     data_type_cls = data_types.Json
     key = 'ir-receiver:ir'

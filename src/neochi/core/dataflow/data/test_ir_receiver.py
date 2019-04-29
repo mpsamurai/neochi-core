@@ -54,14 +54,14 @@ class BaseTestData:
         self._data = None
 
 
-class TestReceiverStateData(BaseTestData, unittest.TestCase):
-    data_cls = ir_receiver.ReceiverState
+class TestState(BaseTestData, unittest.TestCase):
+    data_cls = ir_receiver.State
     valid_test_data = [
         {'value_set': 'booting', 'value_got': 'booting', 'value_in_redis': b'booting'}
     ]
 
 
-class TestIrData(BaseTestData, unittest.TestCase):
+class TestIr(BaseTestData, unittest.TestCase):
     data_cls = ir_receiver.Ir
     valid_test_data = [
             {'value_set':        {'signals': [{'id': 0, 

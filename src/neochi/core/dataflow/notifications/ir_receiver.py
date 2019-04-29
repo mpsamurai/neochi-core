@@ -25,62 +25,76 @@ from neochi.core.dataflow.notifications import base
 from neochi.core.dataflow import data_types
 
 
-class StartedIrRecevingNotification(base.BaseNotification):
+class StartedIrReceving(base.BaseNotification):
     data_type_cls = data_types.Int
     channel = 'started_ir_receiving'
     
-class StoppedIrReceivingNoSignalNotification(base.BaseNotification):
+    
+class StoppedIrReceivingNoSignal(base.BaseNotification):
     data_type_cls = data_types.Null
     channel = 'stopped_ir_receiving_no_signal'
     
-class StoppedIrReceivingInvalidSignalNotification(base.BaseNotification):
+    
+class StoppedIrReceivingInvalidSignal(base.BaseNotification):
     data_type_cls = data_types.Null
     channel = 'stopped_ir_receiving_invalid_signal'
     
-class StoppedIrReceivingValidSignalNotification(base.BaseNotification):
+    
+class StoppedIrReceivingValidSignal(base.BaseNotification):
     data_type_cls = data_types.Null
     channel = 'stopped_ir_receiving_valid_signal'
     
-class StoppedIrReceivingStopMessageNotification(base.BaseNotification):
+    
+class StoppedIrReceivingStopMessage(base.BaseNotification):
     data_type_cls = data_types.Null
     channel = 'stopped_ir_receiving_stop_message'
     
-class StoppedIrReceivingMoreSignalNotification(base.BaseNotification):
+    
+class StoppedIrReceivingMoreSignal(base.BaseNotification):
     data_type_cls = data_types.Null
     channel = 'stopped_ir_receiving_more_signal'
     
-class StoppedIrSavingNotification(base.BaseNotification):
+    
+class StoppedIrSaving(base.BaseNotification):
     data_type_cls = data_types.Null
     channel = 'stopped_ir_saving'
     
-class StoppedIrSavingErrorNotification(base.BaseNotification):
+    
+class StoppedIrSavingError(base.BaseNotification):
     data_type_cls = data_types.Null
     channel = 'stopped_ir_saving_error'
     
-class StoppedDiscardingNotification(base.BaseNotification):
+    
+class StoppedDiscarding(base.BaseNotification):
     data_type_cls = data_types.Null
     channel = 'stopped_discarding'
     
-class StoppedDiscardingErrorNotification(base.BaseNotification):
+    
+class StoppedDiscardingError(base.BaseNotification):
     data_type_cls = data_types.Str
     channel = 'stopped_discarding_error'
     
-class StartIrReceivingNotification(base.BaseNotification):
+    
+class StartIrReceiving(base.BaseNotification):
     data_type_cls = data_types.Null
     channel = 'start_ir_receiving'
     
-class StopIrReceivingNotification(base.BaseNotification):
+    
+class StopIrReceiving(base.BaseNotification):
     data_type_cls = data_types.Null
     channel = 'stop_ir_receiving'
     
-class SaveIrSignalNotification(base.BaseNotification):
+    
+class SaveIrSignal(base.BaseNotification):
     data_type_cls = data_types.Str
     channel = 'save_ir_signal'
     
-class DiscardIrSignalNotification(base.BaseNotification):
+    
+class DiscardIrSignal(base.BaseNotification):
     data_type_cls = data_types.Null
     channel = 'discard_ir_signal'
     
-class DeleteIrSignalNotification(base.BaseNotification):
+    
+class DeleteIrSignal(base.BaseNotification):
     data_type_cls = data_types.Str
     channel = 'delete_ir_signal'
