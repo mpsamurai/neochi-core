@@ -21,7 +21,7 @@
 # SOFTWARE.
 
 
-from neochi.core.dataflow.data imprt base
+from neochi.core.dataflow.data import base
 from neochi.core.dataflow import data_types
 
 
