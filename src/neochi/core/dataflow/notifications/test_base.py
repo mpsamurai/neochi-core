@@ -53,8 +53,8 @@ class StrTestNotification(base.BaseNotification):
     channel = 'str_test_notification'
 
 
-class DateTimeTestNotification(base.BaseNotification):
-    data_type_cls = data_types.DateTime
+class DatetimeTestNotification(base.BaseNotification):
+    data_type_cls = data_types.Datetime
     channel = 'datetime_test_notification'
 
 
@@ -104,8 +104,8 @@ class TestStrTestNotification(BaseTestNotification, unittest.TestCase):
     valid_test_data = [{'published': 'abc', 'subscribed': 'abc'}]
 
 
-class TestDateTimeTestNotification(BaseTestNotification, unittest.TestCase):
-    notification_cls = DateTimeTestNotification
+class TestDatetimeTestNotification(BaseTestNotification, unittest.TestCase):
+    notification_cls = DatetimeTestNotification
     valid_test_data = [{'published': datetime(2019, 4, 27), 'subscribed': datetime(2019, 4, 27)}]
 
 

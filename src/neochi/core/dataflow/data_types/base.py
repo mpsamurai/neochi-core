@@ -86,7 +86,7 @@ class Str(AtomicDataType):
     type = str
 
 
-class DateTime(BaseDataType):
+class Datetime(BaseDataType):
     format = '%Y%m%d%H%M%S%f'
 
     def _encode(self, value):

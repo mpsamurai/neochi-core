@@ -52,8 +52,8 @@ class StrTestData(base.BaseData):
     key = 'str_test_data'
 
 
-class DateTimeTestData(base.BaseData):
-    data_type_cls = data_types.DateTime
+class DatetimeTestData(base.BaseData):
+    data_type_cls = data_types.Datetime
     key = 'datetime_test_data'
 
 
@@ -120,12 +120,12 @@ class TestStrTestData(BaseTestData, unittest.TestCase):
     ]
 
 
-class TestDateTimeTestData(BaseTestData, unittest.TestCase):
-    data_cls = DateTimeTestData
+class TestDatetimeTestData(BaseTestData, unittest.TestCase):
+    data_cls = DatetimeTestData
     valid_test_data = [
         {'value_set': datetime(2019, 4, 27),
          'value_got': datetime(2019, 4, 27),
-         'value_in_redis': datetime(2019, 4, 27).strftime(DateTimeTestData.data_type_cls.format).encode()}
+         'value_in_redis': datetime(2019, 4, 27).strftime(DatetimeTestData.data_type_cls.format).encode()}
     ]
 
 
