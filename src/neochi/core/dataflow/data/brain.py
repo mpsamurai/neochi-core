@@ -19,3 +19,19 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
+
+
+from neochi.core.dataflow import data_types
+from neochi.core.dataflow.data import base
+
+class LyingPossibility(base.BaseData):
+    data_type_cls = data_types.Float
+    key = 'brain:lying-possibility'
+
+class IsMoving(base.BaseData):
+    data_type_cls = data_types.Int
+    key = 'brain:is-moving'
+
+class SleepingPossibility(base.BaseData):
+    data_type_cls = data_types.Float
+    key = 'brain:sleeping-possibility'
