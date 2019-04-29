@@ -32,6 +32,13 @@ from neochi.core.dataflow import data_types
 from neochi.core.dataflow.data import base, brain, test_base
 
 
+class TestBrainState(test_base.StrTestData, unittest.TestCase):
+    data_cls = brain
+    valid_test_data = [
+        {'value_set': 'abc', 'value_got': 'abc', 'value_in_redis': b'abc'}
+    ]
+
+
 class TestLyingPossibility(test_base.FloatTestData, unittest.TestCase):
     data_cls = brain.LyingPossibility
     valid_test_data = [

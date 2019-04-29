@@ -24,6 +24,11 @@
 from neochi.core.dataflow import data_types
 from neochi.core.dataflow.data import base
 
+
+class BrainState(base.BaseData):
+    data_type_cls = data_types.Str
+    key = 'brain:state'
+
 class LyingPossibility(base.BaseData):
     data_type_cls = data_types.Float
     key = 'brain:lying-possibility'
