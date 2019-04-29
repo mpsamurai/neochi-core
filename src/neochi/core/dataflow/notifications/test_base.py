@@ -20,8 +20,11 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+
 __author__ = 'Junya Kaneko<junya@mpsamurai.org>'
 
+
+from datetime import datetime
 import time
 import redis
 import unittest
@@ -48,6 +51,11 @@ class FloatTestNotification(base.BaseNotification):
 class StrTestNotification(base.BaseNotification):
     data_type_cls = data_types.Str
     channel = 'str_test_notification'
+
+
+class DateTimeTestNotification(base.BaseNotification):
+    data_type_cls = data_types.DateTime
+    channel = 'datetime_test_notification'
 
 
 class JsonTestNotification(base.BaseNotification):
@@ -94,6 +102,11 @@ class TestFloatTestNotification(BaseTestNotification, unittest.TestCase):
 class TestStrTestNotification(BaseTestNotification, unittest.TestCase):
     notification_cls = StrTestNotification
     valid_test_data = [{'published': 'abc', 'subscribed': 'abc'}]
+
+
+class TestDateTimeTestNotification(BaseTestNotification, unittest.TestCase):
+    notification_cls = DateTimeTestNotification
+    valid_test_data = [{'published': datetime(2019, 4, 27), 'subscribed': datetime(2019, 4, 27)}]
 
 
 class TestJasonTestNotification(BaseTestNotification, unittest.TestCase):

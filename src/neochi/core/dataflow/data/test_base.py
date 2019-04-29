@@ -24,6 +24,7 @@
 __author__ = 'Junya Kaneko<junya@mpsamurai.org>'
 
 
+from datetime import datetime
 import redis
 import unittest
 import numpy as np
@@ -49,6 +50,11 @@ class FloatTestData(base.BaseData):
 class StrTestData(base.BaseData):
     data_type_cls = data_types.Str
     key = 'str_test_data'
+
+
+class DateTimeTestData(base.BaseData):
+    data_type_cls = data_types.DateTime
+    key = 'datetime_test_data'
 
 
 class JsonTestData(base.BaseData):
@@ -111,6 +117,15 @@ class TestStrTestData(BaseTestData, unittest.TestCase):
     data_cls = StrTestData
     valid_test_data = [
         {'value_set': 'abc', 'value_got': 'abc', 'value_in_redis': b'abc'}
+    ]
+
+
+class TestDateTimeTestData(BaseTestData, unittest.TestCase):
+    data_cls = DateTimeTestData
+    valid_test_data = [
+        {'value_set': datetime(2019, 4, 27),
+         'value_got': datetime(2019, 4, 27),
+         'value_in_redis': datetime(2019, 4, 27).strftime(DateTimeTestData.data_type_cls.format).encode()}
     ]
 
 
