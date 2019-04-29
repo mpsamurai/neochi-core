@@ -24,6 +24,7 @@
 __author__ = 'Junya Kaneko<junya@mpsamurai.org>'
 
 
+import threading
 from datetime import datetime
 import time
 import redis
@@ -83,6 +84,28 @@ class BaseTestNotification:
             time.sleep(0.1)
             self._notification.unsubscribe()
 
+    def test_that_notification_waits_subscription_end(self):
+        def unsubscribe(notification):
+            time.sleep(3)
+            notification.unsubscribe()
+            notification.unsubscribed = True
+
+        self._notification.subscribe()
+        time.sleep(1)
+        thread = threading.Thread(target=unsubscribe, args=(self._notification, ))
+        thread.start()
+        time.sleep(1)
+        self._notification.wait_subscription_end()
+        thread.join()
+        self.assertTrue(self._notification.unsubscribed)
+
+    def test_that_channel_already_subscribed_can_not_be_subscribed(self):
+        self._notification.subscribe()
+        with self.assertRaises(base.ChannelIsAlreadySubscribed):
+            self._notification.subscribe()
+        time.sleep(1)
+        self._notification.unsubscribe()
+
 
 class TestNullTestNotification(BaseTestNotification, unittest.TestCase):
     notification_cls = NullTestNotification
@@ -123,6 +146,6 @@ class TestImageTestNotification(BaseTestNotification, unittest.TestCase):
         for datum in self.valid_test_data:
             self._notification.subscribe(lambda v: self.assertTrue(np.all(v == datum['subscribed'])))
             self._notification.value = datum['published']
-            time.sleep(0.1)
+            time.sleep(1)
             self._notification.unsubscribe()
 

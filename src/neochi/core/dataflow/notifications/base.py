@@ -27,6 +27,10 @@ __author__ = 'Junya Kaneko<junya@mpsamurai.org>'
 import threading
 
 
+class ChannelIsAlreadySubscribed(Exception):
+    pass
+
+
 class BaseNotification:
     data_type_cls = None
     channel = ''
@@ -36,19 +40,27 @@ class BaseNotification:
         self._data = self.data_type_cls()
         self._pubsub = None
         self.auto_notify = auto_notify
+        self._subscribe_thread = None
 
     def _subscribe(self, callback):
         for message in self._pubsub.listen():
             if message['type'] == 'message':
                 self._data.value = message['data']
-                callback(self._data.value)
+                if callback is not None:
+                    callback(self._data.value)
+        self._subscribe_thread = None
 
-    def subscribe(self, callback):
+    def subscribe(self, callback=None):
         if self._pubsub is None:
             self._pubsub = self._server.pubsub()
+        if self._subscribe_thread is not None:
+            raise ChannelIsAlreadySubscribed
         self._pubsub.subscribe(self.channel)
-        thread = threading.Thread(target=self._subscribe, args=([callback, ]))
-        thread.start()
+        self._subscribe_thread = threading.Thread(target=self._subscribe, args=([callback, ]))
+        self._subscribe_thread.start()
+
+    def wait_subscription_end(self):
+        self._subscribe_thread.join()
 
     def unsubscribe(self):
         self._pubsub.unsubscribe(self.channel)
@@ -65,6 +77,3 @@ class BaseNotification:
         self._data.value = val
         if self.auto_notify:
             self.notify()
-
-
-
