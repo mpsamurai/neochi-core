@@ -48,6 +48,18 @@ class BaseDataType:
         raise NotImplementedError
 
 
+class Null(BaseDataType):
+    def __init__(self):
+        super().__init__()
+        self._value = None
+
+    def _encode(self, value):
+        return str(None)
+
+    def _decode(self, value):
+        return None
+
+
 class AtomicDataType(BaseDataType):
     type = None
 
