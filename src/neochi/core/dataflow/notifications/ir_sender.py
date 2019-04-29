@@ -24,11 +24,11 @@ from neochi.core.dataflow.notifications.base import BaseNotification
 from neochi.core.dataflow.data.base import BaseData
 
 
-class StartIrSendingNotification(BaseNotification):
+class StartIrSending(BaseNotification):
     data_type_cls = BaseData.Int
     channel = 'start_ir_sending'
 
 
-class CompleteIrSendingNotification(BaseNotification):
+class CompleteIrSending(BaseNotification):
     data_type_cls = BaseData.Int
     channel = 'complete_ir_sending'
