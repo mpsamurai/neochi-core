@@ -32,29 +32,3 @@ class Image(base.BaseData):
 class State(base.BaseData):
     data_type_cls = data_types.Json
     key = 'state'
-
-
-if __name__ == "__main__":
-    # Local var
-    fps = 2 
-
-    # RedisとのConnect
-    r = redis.StrictRedis("redis", 6379, db=0)
-    eye_image = Image(r)
-    eye_state = State(r)
-
-    while True:
-        # Receive
-        image_size_dict = json.loads(eye_state.value)
-
-        width = image_size_dict["image_size"]["width"]
-        height = image_size_dict["image_size"]["height"]
-        image_size = [width, height]
-
-        # Get Image
-        _, captured_image = get_image.start_capture(image_size)
-
-        # Transmit
-        eye_image.value = captured_image
-
-        time.sleep(1. /fps)   
