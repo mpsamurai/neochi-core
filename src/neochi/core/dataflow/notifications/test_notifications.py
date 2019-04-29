@@ -68,7 +68,7 @@ class BaseTestNotification:
         self._r = redis.StrictRedis('redis')
         self._notification = self.notification_cls(self._r)
 
-    def test_that_setter_and_getter_value_pubsubs_valid_data_when_valid_data_is_given(self):
+    def test_that_setter_and_getter_value_pubsub_valid_data_when_valid_data_is_given(self):
         for datum in self.valid_test_data:
             self._notification.subscribe(lambda v: self.assertEqual(v, datum['subscribed']))
             self._notification.value = datum['published']
