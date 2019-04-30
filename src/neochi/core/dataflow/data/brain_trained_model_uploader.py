@@ -19,3 +19,15 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
+
+from neochi.core.dataflow.data_types import base as data_type
+from neochi.core.dataflow.data import base
+
+class State(base.BaseData):
+    data_type_cls = data_type.Str
+    key = "brain-trained-model-uploader:state"
+
+
+class LastUpdateTime(base.BaseData):
+    data_type_cls = data_type.DateTime
+    key = "brain-trained-model-uploader:last-update-time"
