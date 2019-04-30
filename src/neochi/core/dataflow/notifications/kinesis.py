@@ -1,3 +1,4 @@
+
 # MIT License
 #
 # Copyright (c) 2019 Morning Project Samurai (MPS)
@@ -19,16 +20,3 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
-
-from neochi.core.dataflow.data_types import base as data_type
-from neochi.core.dataflow.notifications import base
-
-
-class StartedModelUpload(base.BaseNotification):
-    data_type_cls = data_type.Null
-    channel = 'started_model_upload'
-
-
-class CompletedModelUpload(base.BaseNotification):
-    data_type_cls = data_type.Null
-    channel = 'completed_model_upload'

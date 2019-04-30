@@ -1,3 +1,4 @@
+
 # MIT License
 #
 # Copyright (c) 2019 Morning Project Samurai (MPS)
@@ -20,15 +21,9 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-from neochi.core.dataflow.data_types import base as data_type
-from neochi.core.dataflow.notifications import base
+from neochi.core.dataflow.data import base
+from neochi.core.dataflow import data_types
 
-
-class StartedModelUpload(base.BaseNotification):
-    data_type_cls = data_type.Null
-    channel = 'started_model_upload'
-
-
-class CompletedModelUpload(base.BaseNotification):
-    data_type_cls = data_type.Null
-    channel = 'completed_model_upload'
+class ActionPlan(base.BaseData):
+    data_type_cls = data_types.Json
+    key = 'kinesis:action-plan'

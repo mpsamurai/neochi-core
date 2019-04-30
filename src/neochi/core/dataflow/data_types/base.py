@@ -22,6 +22,7 @@
 
 __author__ = 'Junya Kaneko<junya@mpsamurai.org>'
 
+from datetime import datetime
 import json
 import numpy as np
 
@@ -48,6 +49,18 @@ class BaseDataType:
         raise NotImplementedError
 
 
+class Null(BaseDataType):
+    def __init__(self):
+        super().__init__()
+        self._value = None
+
+    def _encode(self, value):
+        return str(None)
+
+    def _decode(self, value):
+        return None
+
+
 class AtomicDataType(BaseDataType):
     type = None
 
@@ -71,6 +84,19 @@ class Float(AtomicDataType):
 
 class Str(AtomicDataType):
     type = str
+
+
+class Datetime(BaseDataType):
+    format = '%Y%m%d%H%M%S%f'
+
+    def _encode(self, value):
+        return value.strftime(self.format)
+
+    def _decode(self, value):
+        if isinstance(value, bytes):
+            return datetime.strptime(value.decode(), self.format)
+        else:
+            return value
 
 
 class Json(BaseDataType):
