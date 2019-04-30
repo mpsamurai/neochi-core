@@ -26,9 +26,9 @@ from neochi.core.dataflow import data_types
 
 class Image(base.BaseData):
     data_type_cls = data_types.Image
-    key = 'image'
+    key = 'eye:image'
 
 
 class State(base.BaseData):
     data_type_cls = data_types.Json
-    key = 'state'
+    key = 'eye:state'
