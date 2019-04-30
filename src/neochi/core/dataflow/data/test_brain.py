@@ -21,22 +21,39 @@
 # SOFTWARE.
 
 
+__author__ = 'Junya Kaneko<junya@mpsamurai.org>'
+
+
+from datetime import datetime
+import redis
+import unittest
+import numpy as np
 from neochi.core.dataflow import data_types
-from neochi.core.dataflow.data import base
+from neochi.core.dataflow.data import base, brain, test_base
 
 
-class BrainState(base.BaseData):
-    data_type_cls = data_types.Str
-    key = 'brain:state'
+class TestBrainState(test_base.StrTestData, unittest.TestCase):
+    data_cls = brain
+    valid_test_data = [
+        {'value_set': 'abc', 'value_got': 'abc', 'value_in_redis': b'abc'}
+    ]
 
-class LyingPossibility(base.BaseData):
-    data_type_cls = data_types.Float
-    key = 'brain:lying-possibility'
 
-class IsMoving(base.BaseData):
-    data_type_cls = data_types.Int
-    key = 'brain:is-moving'
+class TestLyingPossibility(test_base.FloatTestData, unittest.TestCase):
+    data_cls = brain.LyingPossibility
+    valid_test_data = [
+        {'value_set': 0.1, 'value_got': 0.1, 'value_in_redis': b'0.1'}
+    ]
 
-class SleepingPossibility(base.BaseData):
-    data_type_cls = data_types.Float
-    key = 'brain:sleeping-possibility'
+class TestIsMoving(test_base.IntTestData, unittest.TestCase):
+    data_cls = brain.IsMoving
+    valid_test_data = [
+        {'value_set': 1, 'value_got': 1, 'value_in_redis': b'1'}
+    ]
+
+
+class TestSleepingPossibility(test_base.FloatTestData, unittest.TestCase):
+    data_cls = brain.SleepingPossibility
+    valid_test_data = [
+        {'value_set': 0.1, 'value_got': 0.1, 'value_in_redis': b'0.1'}
+    ]
