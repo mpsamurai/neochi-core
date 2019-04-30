@@ -47,7 +47,7 @@ class BaseNotification:
             if message['type'] == 'message':
                 self._data.value = message['data']
                 if callback is not None:
-                    callback(self._data.value)
+                    callback(self._data.value, self.channel)
         self._subscribe_thread = None
 
     def subscribe(self, callback=None):
