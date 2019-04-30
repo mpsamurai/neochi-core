@@ -79,7 +79,7 @@ class BaseTestNotification:
 
     def test_that_setter_and_getter_value_pubsub_valid_data_when_valid_data_is_given(self):
         for datum in self.valid_test_data:
-            self._notification.subscribe(lambda v: self.assertEqual(v, datum['subscribed']))
+            self._notification.subscribe(lambda v, c: self.assertEqual(v, datum['subscribed']))
             self._notification.value = datum['published']
             time.sleep(0.1)
             self._notification.unsubscribe()
@@ -144,7 +144,7 @@ class TestImageTestNotification(BaseTestNotification, unittest.TestCase):
 
     def test_that_setter_and_getter_value_pubsub_valid_data_when_valid_data_is_given(self):
         for datum in self.valid_test_data:
-            self._notification.subscribe(lambda v: self.assertTrue(np.all(v == datum['subscribed'])))
+            self._notification.subscribe(lambda v, c: self.assertTrue(np.all(v == datum['subscribed'])))
             self._notification.value = datum['published']
             time.sleep(1)
             self._notification.unsubscribe()
