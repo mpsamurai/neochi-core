@@ -19,3 +19,16 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
+
+from neochi.core.dataflow.notifications.base import BaseNotification
+from neochi.core.dataflow import data_types
+
+
+class StartIrSending(BaseNotification):
+    data_type_cls = data_types.Int
+    channel = 'start_ir_sending'
+
+
+class CompleteIrSending(BaseNotification):
+    data_type_cls = data_types.Int
+    channel = 'complete_ir_sending'
