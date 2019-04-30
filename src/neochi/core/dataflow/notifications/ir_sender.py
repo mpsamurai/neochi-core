@@ -25,10 +25,10 @@ from neochi.core.dataflow import data_types
 
 
 class StartIrSending(BaseNotification):
-    data_type_cls = data_types.Int
+    data_type_cls = data_types.Json
     channel = 'start_ir_sending'
 
 
 class CompleteIrSending(BaseNotification):
-    data_type_cls = data_types.Int
+    data_type_cls = data_types.Json
     channel = 'complete_ir_sending'
