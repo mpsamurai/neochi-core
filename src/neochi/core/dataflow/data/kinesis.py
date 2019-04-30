@@ -24,6 +24,27 @@
 from neochi.core.dataflow.data import base
 from neochi.core.dataflow import data_types
 
+
 class ActionPlan(base.BaseData):
     data_type_cls = data_types.Json
     key = 'kinesis:action-plan'
+
+    def get_plan(self, channel):
+        return self.value[channel]
+
+    def __getitem__(self, item):
+        return self.get_plan(item)
+
+
+class ActionPlanDetail(base.BaseData):
+    data_type_cls = data_types.Json
+    key = 'neochi-app:action'
+
+    def get_by_id(self, plan_id):
+        for plan in self.value['actionSets']:
+            if plan['id'] == plan_id:
+                return plan
+        raise KeyError
+
+    def __getitem__(self, item):
+        return self.get_by_id(item)
