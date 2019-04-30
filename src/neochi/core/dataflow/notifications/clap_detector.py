@@ -23,7 +23,7 @@
 from neochi.core.dataflow.notifications import base
 from neochi.core.dataflow import data_types
 
-class ClapDetectorNotification(base.BaseNotification):
-    data_type_cls = data_types.Str 
+class DetectedClap(base.BaseNotification):
+    data_type_cls = data_types.Null
     channel = 'detected_clap'
 
