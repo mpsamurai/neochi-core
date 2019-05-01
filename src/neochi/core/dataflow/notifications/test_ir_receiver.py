@@ -85,7 +85,7 @@ class TestStopIrReceiving(BaseTestNotification, unittest.TestCase):
 
 class TestSaveIrSignal(BaseTestNotification, unittest.TestCase):
     notification_cls = ir_receiver.SaveIrSignal
-    valid_test_data = [{'published': '0,TV Remote,500', 'subscribed': '0,TV Remote,500'}]
+    valid_test_data = [{'published': {'id': 0, 'name': 'TV Remote', 'sleep': 500}, 'subscribed': {'id': 0, 'name': 'TV Remote', 'sleep': 500}}]
 
 
 class TestDiscardIrSignal(BaseTestNotification, unittest.TestCase):

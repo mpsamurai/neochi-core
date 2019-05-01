@@ -86,7 +86,7 @@ class StopIrReceiving(base.BaseNotification):
     
     
 class SaveIrSignal(base.BaseNotification):
-    data_type_cls = data_types.Str
+    data_type_cls = data_types.Json
     channel = 'save_ir_signal'
     
     
