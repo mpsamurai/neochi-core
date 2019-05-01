@@ -25,7 +25,7 @@ from neochi.core.dataflow.notifications import base
 from neochi.core.dataflow import data_types
 
 
-class StartedIrReceving(base.BaseNotification):
+class StartedIrReceiving(base.BaseNotification):
     data_type_cls = data_types.Int
     channel = 'started_ir_receiving'
     
@@ -86,7 +86,7 @@ class StopIrReceiving(base.BaseNotification):
     
     
 class SaveIrSignal(base.BaseNotification):
-    data_type_cls = data_types.Str
+    data_type_cls = data_types.Json
     channel = 'save_ir_signal'
     
     
