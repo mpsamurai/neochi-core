@@ -23,8 +23,8 @@ class BaseTestNotification:
             self._notification.unsubscribe()
 
 
-class TestStartedIrReceving(BaseTestNotification, unittest.TestCase):
-    notification_cls = ir_receiver.StartedIrReceving
+class TestStartedIrReceiving(BaseTestNotification, unittest.TestCase):
+    notification_cls = ir_receiver.StartedIrReceiving
     valid_test_data = [{'published': 1, 'subscribed': 1}]
 
 
