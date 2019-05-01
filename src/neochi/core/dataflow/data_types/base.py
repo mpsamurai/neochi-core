@@ -117,5 +117,7 @@ class Image(BaseDataType):
     def _decode(self, value):
         if isinstance(value, bytes):
             value = json.loads(value)
-            return np.frombuffer(value['image'].encode(), dtype=np.int).reshape(value['shape'])
+            return np.frombuffer(value['image'].encode(), dtype='int32').reshape(value['shape'])
+        if isinstance(value, list):
+            return np.array(value, dtype='int32')
         return value
