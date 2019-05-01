@@ -20,15 +20,18 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-from neochi.core.dataflow.data_types import base as data_type
-from neochi.core.dataflow.notifications import base
+
+__author__ = 'Junya Kaneko<junya@mpsamurai.org>'
 
 
-class StartedModelUpload(base.BaseNotification):
-    data_type_cls = data_type.Null
-    channel = 'started_model_upload'
+from datetime import datetime
+import redis
+import unittest
+import numpy as np
+from neochi.core.dataflow import data_types
+from neochi.core.dataflow.notifications import base, brain, test_base
 
 
-class CompletedModelUpload(base.BaseNotification):
-    data_type_cls = data_type.Null
-    channel = 'completed_model_upload'
+class TestDetectedSleep(test_base.NullTestNotification, unittest.TestCase):
+    notification_cls = brain.DetectedSleep
+    valid_test_data = [{'published': 'abc', 'subscribed': None}]

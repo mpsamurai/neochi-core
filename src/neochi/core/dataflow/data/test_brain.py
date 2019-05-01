@@ -20,15 +20,40 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-from neochi.core.dataflow.data_types import base as data_type
-from neochi.core.dataflow.notifications import base
+
+__author__ = 'Junya Kaneko<junya@mpsamurai.org>'
 
 
-class StartedModelUpload(base.BaseNotification):
-    data_type_cls = data_type.Null
-    channel = 'started_model_upload'
+from datetime import datetime
+import redis
+import unittest
+import numpy as np
+from neochi.core.dataflow import data_types
+from neochi.core.dataflow.data import base, brain, test_base
 
 
-class CompletedModelUpload(base.BaseNotification):
-    data_type_cls = data_type.Null
-    channel = 'completed_model_upload'
+class TestBrainState(test_base.StrTestData, unittest.TestCase):
+    data_cls = brain
+    valid_test_data = [
+        {'value_set': 'abc', 'value_got': 'abc', 'value_in_redis': b'abc'}
+    ]
+
+
+class TestLyingPossibility(test_base.FloatTestData, unittest.TestCase):
+    data_cls = brain.LyingPossibility
+    valid_test_data = [
+        {'value_set': 0.1, 'value_got': 0.1, 'value_in_redis': b'0.1'}
+    ]
+
+class TestIsMoving(test_base.IntTestData, unittest.TestCase):
+    data_cls = brain.IsMoving
+    valid_test_data = [
+        {'value_set': 1, 'value_got': 1, 'value_in_redis': b'1'}
+    ]
+
+
+class TestSleepingPossibility(test_base.FloatTestData, unittest.TestCase):
+    data_cls = brain.SleepingPossibility
+    valid_test_data = [
+        {'value_set': 0.1, 'value_got': 0.1, 'value_in_redis': b'0.1'}
+    ]

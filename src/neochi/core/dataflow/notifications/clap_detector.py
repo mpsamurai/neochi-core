@@ -19,3 +19,11 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
+
+from neochi.core.dataflow.notifications import base
+from neochi.core.dataflow import data_types
+
+class DetectedClap(base.BaseNotification):
+    data_type_cls = data_types.Null
+    channel = 'detected_clap'
+

@@ -20,8 +20,12 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+
 __author__ = 'Junya Kaneko<junya@mpsamurai.org>'
 
+
+import threading
+from datetime import datetime
 import time
 import redis
 import unittest
@@ -50,6 +54,11 @@ class StrTestNotification(base.BaseNotification):
     channel = 'str_test_notification'
 
 
+class DatetimeTestNotification(base.BaseNotification):
+    data_type_cls = data_types.Datetime
+    channel = 'datetime_test_notification'
+
+
 class JsonTestNotification(base.BaseNotification):
     data_type_cls = data_types.Json
     channel = 'json_test_notification'
@@ -68,12 +77,34 @@ class BaseTestNotification:
         self._r = redis.StrictRedis('redis')
         self._notification = self.notification_cls(self._r)
 
-    def test_that_setter_and_getter_value_pubsubs_valid_data_when_valid_data_is_given(self):
+    def test_that_setter_and_getter_value_pubsub_valid_data_when_valid_data_is_given(self):
         for datum in self.valid_test_data:
             self._notification.subscribe(lambda v: self.assertEqual(v, datum['subscribed']))
             self._notification.value = datum['published']
             time.sleep(0.1)
             self._notification.unsubscribe()
+
+    def test_that_notification_waits_subscription_end(self):
+        def unsubscribe(notification):
+            time.sleep(3)
+            notification.unsubscribe()
+            notification.unsubscribed = True
+
+        self._notification.subscribe()
+        time.sleep(1)
+        thread = threading.Thread(target=unsubscribe, args=(self._notification, ))
+        thread.start()
+        time.sleep(1)
+        self._notification.wait_subscription_end()
+        thread.join()
+        self.assertTrue(self._notification.unsubscribed)
+
+    def test_that_channel_already_subscribed_can_not_be_subscribed(self):
+        self._notification.subscribe()
+        with self.assertRaises(base.ChannelIsAlreadySubscribed):
+            self._notification.subscribe()
+        time.sleep(1)
+        self._notification.unsubscribe()
 
 
 class TestNullTestNotification(BaseTestNotification, unittest.TestCase):
@@ -96,6 +127,11 @@ class TestStrTestNotification(BaseTestNotification, unittest.TestCase):
     valid_test_data = [{'published': 'abc', 'subscribed': 'abc'}]
 
 
+class TestDatetimeTestNotification(BaseTestNotification, unittest.TestCase):
+    notification_cls = DatetimeTestNotification
+    valid_test_data = [{'published': datetime(2019, 4, 27), 'subscribed': datetime(2019, 4, 27)}]
+
+
 class TestJasonTestNotification(BaseTestNotification, unittest.TestCase):
     notification_cls = JsonTestNotification
     valid_test_data = [{'published': {'abc': 1}, 'subscribed': {'abc': 1}}]
@@ -110,6 +146,6 @@ class TestImageTestNotification(BaseTestNotification, unittest.TestCase):
         for datum in self.valid_test_data:
             self._notification.subscribe(lambda v: self.assertTrue(np.all(v == datum['subscribed'])))
             self._notification.value = datum['published']
-            time.sleep(0.1)
+            time.sleep(1)
             self._notification.unsubscribe()
 
