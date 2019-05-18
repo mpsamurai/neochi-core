@@ -25,6 +25,7 @@ __author__ = 'Junya Kaneko<junya@mpsamurai.org>'
 from datetime import datetime
 import json
 import numpy as np
+import base64
 
 
 class BaseDataType:
@@ -112,12 +113,12 @@ class Json(BaseDataType):
 
 class Image(BaseDataType):
     def _encode(self, image):
-        return json.dumps({'shape': image.shape, 'image': image.tostring().decode()})
+        return json.dumps({'shape': image.shape, 'image': base64.b64encode(image.tostring()).decode()})
 
     def _decode(self, value):
         if isinstance(value, bytes):
             value = json.loads(value)
-            return np.frombuffer(value['image'].encode(), dtype='int32').reshape(value['shape'])
+            return np.frombuffer(base64.b64decode(value['image'].encode()), dtype=np.uint8).reshape(value['shape'])
         if isinstance(value, list):
-            return np.array(value, dtype='int32')
+            return np.array(value, dtype=np.uint8)
         return value
