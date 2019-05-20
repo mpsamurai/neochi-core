@@ -112,13 +112,16 @@ class Json(BaseDataType):
 
 
 class Image(BaseDataType):
-    def _encode(self, image):
-        return json.dumps({'shape': image.shape, 'image': base64.b64encode(image.tostring()).decode()})
+    def _encode(self, value):
+        image = base64.b64encode(value.tostring()).decode()
+        return json.dumps({'shape': value.shape, 'image': image})
 
     def _decode(self, value):
         if isinstance(value, bytes):
+            value = value.decode()
             value = json.loads(value)
-            return np.frombuffer(base64.b64decode(value['image'].encode()), dtype=np.uint8).reshape(value['shape'])
+            buf = base64.b64decode(value['image'].encode())
+            return np.frombuffer(buf, dtype=np.uint8).reshape(value['shape'])
         if isinstance(value, list):
             return np.array(value, dtype=np.uint8)
         return value
