@@ -112,9 +112,16 @@ class Json(BaseDataType):
 
 
 class Image(BaseDataType):
+    datetime_format = '%Y%m%d%H%M%S%f'
+
     def _encode(self, value):
         image = base64.b64encode(value.tostring()).decode()
-        return json.dumps({'shape': value.shape, 'image': image})
+        now = datetime.now()
+        return json.dumps({'width': value.shape[1], 
+                           'height': value.shape[0], 
+                           'channel': value.shape[2], 
+                           'timeStamp': now.strftime(self.datetime_format),
+                           'image': image})
 
     def _decode(self, value):
         if isinstance(value, bytes):
