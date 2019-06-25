@@ -128,7 +128,7 @@ class Image(BaseDataType):
             value = value.decode()
             value = json.loads(value)
             buf = base64.b64decode(value['image'].encode())
-            return np.frombuffer(buf, dtype=np.uint8).reshape(value['shape'])
+            return np.frombuffer(buf, dtype=np.uint8).reshape((value['height'], value['width'], value['channel']))
         if isinstance(value, list):
             return np.array(value, dtype=np.uint8)
         return value
