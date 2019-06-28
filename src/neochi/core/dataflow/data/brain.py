@@ -29,13 +29,11 @@ class BrainState(base.BaseData):
     data_type_cls = data_types.Str
     key = 'brain:state'
 
-class LyingPossibility(base.BaseData):
-    data_type_cls = data_types.Float
-    key = 'brain:lying-possibility'
 
-class IsMoving(base.BaseData):
-    data_type_cls = data_types.Int
-    key = 'brain:is-moving'
+class MovementClassProbabilities(base.BaseData):
+    data_type_cls = data_types.NDArray
+    key = 'brain:movement-class-probabilities'
+
 
 class SleepingPossibility(base.BaseData):
     data_type_cls = data_types.Float
