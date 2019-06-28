@@ -111,6 +111,18 @@ class Json(BaseDataType):
         return value
 
 
+class NDArray(Json):
+    def _encode(self, value):
+        value = value.tolist()
+        return json.dumps(value)
+
+    def _decode(self, value):
+        if isinstance(value, bytes):
+            value = value.decode()
+            return np.array(json.loads(value))
+        return value
+
+
 class Image(BaseDataType):
     datetime_format = '%Y%m%d%H%M%S%f'
 
