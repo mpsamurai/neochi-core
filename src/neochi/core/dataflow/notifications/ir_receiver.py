@@ -24,77 +24,11 @@
 from neochi.core.dataflow.notifications import base
 from neochi.core.dataflow import data_types
 
-
-class StartedIrReceiving(base.BaseNotification):
-    data_type_cls = data_types.Int
-    channel = 'started_ir_receiving'
     
-    
-class StoppedIrReceivingNoSignal(base.BaseNotification):
-    data_type_cls = data_types.Null
-    channel = 'stopped_ir_receiving_no_signal'
-    
-    
-class StoppedIrReceivingInvalidSignal(base.BaseNotification):
-    data_type_cls = data_types.Null
-    channel = 'stopped_ir_receiving_invalid_signal'
-    
-    
-class StoppedIrReceivingValidSignal(base.BaseNotification):
-    data_type_cls = data_types.Null
-    channel = 'stopped_ir_receiving_valid_signal'
-    
-    
-class StoppedIrReceivingStopMessage(base.BaseNotification):
-    data_type_cls = data_types.Null
-    channel = 'stopped_ir_receiving_stop_message'
-    
-    
-class StoppedIrReceivingMoreSignal(base.BaseNotification):
-    data_type_cls = data_types.Null
-    channel = 'stopped_ir_receiving_more_signal'
-    
-    
-class StoppedIrSaving(base.BaseNotification):
-    data_type_cls = data_types.Null
-    channel = 'stopped_ir_saving'
-    
-    
-class StoppedIrSavingError(base.BaseNotification):
-    data_type_cls = data_types.Null
-    channel = 'stopped_ir_saving_error'
-    
-    
-class StoppedDiscarding(base.BaseNotification):
-    data_type_cls = data_types.Null
-    channel = 'stopped_discarding'
-    
-    
-class StoppedDiscardingError(base.BaseNotification):
-    data_type_cls = data_types.Str
+class IrReceiverNeochiApp(base.BaseNotification):
+    data_type_cls = data_types.Json
     channel = 'stopped_discarding_error'
     
-    
-class StartIrReceiving(base.BaseNotification):
-    data_type_cls = data_types.Null
-    channel = 'start_ir_receiving'
-    
-    
-class StopIrReceiving(base.BaseNotification):
-    data_type_cls = data_types.Null
-    channel = 'stop_ir_receiving'
-    
-    
-class SaveIrSignal(base.BaseNotification):
+class NeochiAppIrReceiver(base.BaseNotification):
     data_type_cls = data_types.Json
-    channel = 'save_ir_signal'
-    
-    
-class DiscardIrSignal(base.BaseNotification):
-    data_type_cls = data_types.Null
-    channel = 'discard_ir_signal'
-    
-    
-class DeleteIrSignal(base.BaseNotification):
-    data_type_cls = data_types.Str
-    channel = 'delete_ir_signal'
+    channel = 'neochi-app:ir-reciever'
