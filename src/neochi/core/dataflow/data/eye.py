@@ -34,6 +34,8 @@ class State(base.BaseData):
     key = 'eye:state'
 
     def changed(self, previous_state):
+        if len(self.value.keys()) != len(previous_state.keys()):
+            return True
         for key, value in self.value.items():
             if previous_state[key] != value:
                 return True
