@@ -25,6 +25,7 @@ __author__ = 'Junya Kaneko <junya@mpsamurai.org>'
 
 
 import os
+import json
 
 
 class InvalidEnvironmentVariable(Exception):
@@ -38,6 +39,8 @@ def cast(type_str):
         return int
     elif type_str == 'FLOAT':
         return float
+    elif type_str == 'JSON':
+        return json.loads
     else:
         raise InvalidEnvironmentVariable(type_str)
 
