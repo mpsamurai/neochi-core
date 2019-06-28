@@ -32,3 +32,9 @@ class Image(base.BaseData):
 class State(base.BaseData):
     data_type_cls = data_types.Json
     key = 'eye:state'
+
+    def changed(self, previous_state):
+        for key, value in self.value.items():
+            if previous_state[key] != value:
+                return True
+        return False
