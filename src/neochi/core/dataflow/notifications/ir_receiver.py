@@ -27,8 +27,8 @@ from neochi.core.dataflow import data_types
     
 class IrReceiverNeochiApp(base.BaseNotification):
     data_type_cls = data_types.Json
-    channel = 'stopped_discarding_error'
+    channel = 'ir-receiver:neochi-app'
     
 class NeochiAppIrReceiver(base.BaseNotification):
     data_type_cls = data_types.Json
-    channel = 'neochi-app:ir-reciever'
+    channel = 'neochi-app:ir-receiver'
